@@ -12,6 +12,8 @@ services:
       - web.env
     links:
       - db
+    networks:
+      - intranet
 
   db:
     image: postgres:13.4
@@ -19,3 +21,9 @@ services:
       - 5432
     env_file:
       - db.env
+    networks:
+      - intranet
+
+networks:
+  intranet:
+    driver: bridge

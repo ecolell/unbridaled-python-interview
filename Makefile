@@ -20,3 +20,12 @@ db-downgrade:
 
 ps:
 	$(DC) ps
+
+pgadmin:
+	docker pull dpage/pgadmin4
+	docker run --rm -p 5051:80 \
+		--network="unbridaled-python-interview_intranet" \
+		--link="db_1" \
+		-e "PGADMIN_DEFAULT_EMAIL=admin@example.com" \
+		-e "PGADMIN_DEFAULT_PASSWORD=admin" \
+		dpage/pgadmin4
