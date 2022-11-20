@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-buster AS backend_web
 
 # set working directory
 WORKDIR /usr/src/app
@@ -16,6 +16,5 @@ RUN apt-get update \
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
 # add app
 COPY . .
