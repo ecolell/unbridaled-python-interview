@@ -32,6 +32,9 @@ db-downgrade:
 ps:
 	$(DC) ps
 
+logs:
+	$(DC) logs -f web
+
 pgadmin:
 	docker pull dpage/pgadmin4
 	docker run --rm -p 5051:80 \
