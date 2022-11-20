@@ -11,6 +11,9 @@ build:
 build-dev:
 	$(DC_DEV) build web
 
+pipeline-backend-static-check:
+	$(DC_DEV) run --rm -w "/usr/src/app" web mypy app
+
 up:
 	$(DC) up -d db web
 

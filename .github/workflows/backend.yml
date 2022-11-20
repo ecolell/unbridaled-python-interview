@@ -1,0 +1,25 @@
+name: store
+on:
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
+    paths-ignore:
+      - '**.md'
+jobs:
+  mypy:
+    name: mypy
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+    - run: pip install --upgrade pip
+    - run: pip install mypy==v0.902
+    - run: cd store && mypy app
