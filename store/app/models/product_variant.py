@@ -4,6 +4,7 @@ import enum
 
 from sqlmodel import Field, SQLModel, Column, Enum, JSON, Relationship
 from datetime import datetime
+import sqlalchemy as sa
 
 if TYPE_CHECKING:
     from .product import Product
@@ -25,6 +26,6 @@ class ProductVariant(SQLModel, table=True):
     product: "Product" = Relationship()
     purchase_price: int
     type: ProductVariantType = Field(sa_column=Column(Enum(ProductVariantType)))
-    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-    updated_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
+    updated_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
     config_attributes: List = Field(default=[], sa_column=Column(JSON))

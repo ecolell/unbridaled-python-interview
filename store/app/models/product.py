@@ -1,6 +1,7 @@
 from typing import Optional
 import enum
 
+import sqlalchemy as sa
 from sqlmodel import Field, SQLModel, Column, Enum
 from datetime import datetime
 
@@ -23,8 +24,8 @@ class ProductBase(SQLModel):
     purchase_uom: UOMType = Field(sa_column=Column(Enum(UOMType)))
     purchase_uom_conversion_rate: int
     additional_info: str
-    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
-    updated_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
+    updated_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
 
 
 class Product(ProductBase, table=True):
