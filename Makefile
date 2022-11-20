@@ -1,7 +1,15 @@
 DC:=CURRENT_UID=$(UID) docker-compose -f "docker-compose.yml"
+DC_DEV:=CURRENT_UID=$(UID) docker-compose -f "docker-compose-dev.yml"
+
+freeze-requirements:
+	cd store && poetry export --without-hashes --format=requirements.txt > requirements.txt
+	cd store && poetry export --only dev --without-hashes --format=requirements.txt > requirements_dev.txt
 
 build:
 	$(DC) build web
+
+build-dev:
+	$(DC_DEV) build web
 
 up:
 	$(DC) up -d db web

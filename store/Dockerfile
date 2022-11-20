@@ -18,3 +18,7 @@ COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 # add app
 COPY . .
+
+FROM backend_web as backend_dev
+
+RUN pip install -r requirements_dev.txt

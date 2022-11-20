@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: store
+      target: backend_dev
+    volumes:
+      - ./store:/usr/src/app
+    ports:
+      - 8000
+    env_file:
+      - web.env
+    links:
+      - db
+    networks:
+      - dev-intranet
+
+  db:
+    image: postgres:13.4
+    expose:
+      - 5432
+    env_file:
+      - db.env
+    networks:
+      - dev-intranet
+
+networks:
+  dev-intranet:
+    driver: bridge
