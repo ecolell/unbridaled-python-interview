@@ -13,8 +13,7 @@ class UOMType(str, enum.Enum):
     pcs = "pcs"
 
 
-class Product(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+class ProductBase(SQLModel):
     name: str
     uom: UOMType = Field(sa_column=Column(Enum(UOMType)))
     category_name: str
@@ -26,3 +25,11 @@ class Product(SQLModel, table=True):
     additional_info: str
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     updated_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+
+class Product(ProductBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+
+class ProductCreate(ProductBase):
+    pass
