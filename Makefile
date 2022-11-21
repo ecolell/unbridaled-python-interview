@@ -14,6 +14,13 @@ build-dev:
 pipeline-backend-static-check:
 	$(DC_DEV) run --rm -w "/usr/src/app" web mypy app
 
+pipeline-backend-test:
+	$(DC_DEV) up -d db
+	sleep 1;
+	touch web.env
+	$(DC_DEV) run --rm -w "/usr/src/app" web py.test -s -rx -v -l -n 4
+	$(DC_DEV) down db
+
 up:
 	$(DC) up -d db web
 
