@@ -2,15 +2,16 @@
 from typing import Optional, List, TYPE_CHECKING
 import enum
 
-from sqlmodel import Field, SQLModel, Column, Enum, JSON, Relationship
+from sqlmodel import Field, SQLModel, Column, JSON, Relationship
 from datetime import datetime
 import sqlalchemy as sa
+import sqlalchemy_utils as sau
 
 if TYPE_CHECKING:
     from .product import Product
 
 
-class ProductVariantType(str, enum.Enum):
+class ProductVariantType(enum.Enum):
     product = "product"
 
 
@@ -25,7 +26,7 @@ class ProductVariant(SQLModel, table=True):
     product_id: Optional[int] = Field(default=None, foreign_key="product.id")
     product: "Product" = Relationship()
     purchase_price: int
-    type: ProductVariantType = Field(sa_column=Column(Enum(ProductVariantType)))
+    type: ProductVariantType = Field(sa_column=sa.Column(sau.ChoiceType(ProductVariantType, impl=sa.String()), nullable=False))
     created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
     updated_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
     config_attributes: List = Field(default=[], sa_column=Column(JSON))

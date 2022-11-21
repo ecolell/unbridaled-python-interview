@@ -2,26 +2,27 @@ from typing import Optional
 import enum
 
 import sqlalchemy as sa
-from sqlmodel import Field, SQLModel, Column, Enum
+import sqlalchemy_utils as sau
+from sqlmodel import Field, SQLModel
 from datetime import datetime
 
 
-class ProductType(str, enum.Enum):
+class ProductType(enum.Enum):
     product = "product"
 
 
-class UOMType(str, enum.Enum):
+class UOMType(enum.Enum):
     pcs = "pcs"
 
 
 class ProductBase(SQLModel):
     name: str
-    uom: UOMType = Field(sa_column=Column(Enum(UOMType)))
+    uom: UOMType = Field(sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False))
     category_name: str
     is_producible: bool
     is_purchasable: bool
-    type: ProductType = Field(sa_column=Column(Enum(ProductType)))
-    purchase_uom: UOMType = Field(sa_column=Column(Enum(UOMType)))
+    type: ProductType = Field(sa_column=sa.Column(sau.ChoiceType(ProductType, impl=sa.String()), nullable=False))
+    purchase_uom: UOMType = Field(sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False))
     purchase_uom_conversion_rate: int
     additional_info: str
     created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
