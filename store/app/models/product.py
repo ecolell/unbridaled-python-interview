@@ -35,7 +35,7 @@ class Product(SQLModel, table=True):
         )
     )
     purchase_uom: UOMType = Field(
-        sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False)
+        sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=True)
     )
     purchase_uom_conversion_rate: int
     additional_info: str
