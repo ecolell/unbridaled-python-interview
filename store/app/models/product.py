@@ -1,10 +1,13 @@
-from typing import Optional
+from typing import TYPE_CHECKING, Optional, List
 import enum
 
 import sqlalchemy as sa
 import sqlalchemy_utils as sau
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel, Relationship
 from datetime import datetime
+
+if TYPE_CHECKING:
+    from .product_variant import ProductVariant
 
 
 class ProductType(enum.Enum):
@@ -27,6 +30,8 @@ class ProductBase(SQLModel):
     additional_info: str
     created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
     updated_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
+    variants: List["ProductVariant"] = Relationship(back_populates="product")
+
 
 
 class Product(ProductBase, table=True):

@@ -24,7 +24,7 @@ class ProductVariant(SQLModel, table=True):
     sku: str
     sales_price: int
     product_id: Optional[int] = Field(default=None, foreign_key="product.id")
-    product: "Product" = Relationship()
+    product: Optional["Product"] = Relationship(back_populates="variants")
     purchase_price: int
     type: ProductVariantType = Field(sa_column=sa.Column(sau.ChoiceType(ProductVariantType, impl=sa.String()), nullable=False))
     created_at: datetime = Field(sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False)
