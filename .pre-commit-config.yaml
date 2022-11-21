@@ -58,7 +58,7 @@ repos:
     -   id: mypy
         exclude: ^store/migrations/
         language_version: python3.10.6
-        entry: bash -c 'make pipeline-backend-mypy'
+        entry: bash -c 'make pipeline-backend-static-check'
         additional_dependencies:
             - 'mypy-extensions==0.4.3'
             - 'sqlalchemy-stubs==0.4'
