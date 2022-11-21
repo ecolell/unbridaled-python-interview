@@ -39,6 +39,7 @@ class Product(SQLModel, table=True):
     )
     purchase_uom_conversion_rate: int
     additional_info: str
+    batch_tracked: bool
     created_at: datetime = Field(
         sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False
     )
