@@ -22,7 +22,7 @@ class UOMType(enum.Enum):
 
 class Product(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(sa_column=sa.Column("name", sa.Text, unique=True))
     uom: UOMType = Field(
         sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False)
     )
