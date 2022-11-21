@@ -16,6 +16,8 @@ class ProductType(enum.Enum):
 
 class UOMType(enum.Enum):
     pcs = "pcs"
+    kg = "kg"
+    m = "m"
 
 
 class Product(SQLModel, table=True):
