@@ -1,11 +1,4 @@
-from app.models.product import Product
-from app.models.product_variant import ProductVariant
-from sqlmodel import select
-
-
 def test_products_create(client, db):
-    # assert db(select(Product))
-    # assert db(select(ProductVariant))
     data = {
         "name": "Standard-hilt lightsaber",
         "uom": "pcs",
@@ -40,5 +33,3 @@ def test_products_create(client, db):
     }
     res = client.post("/v1/products/create", json=data)
     assert res.status_code == 200
-    # assert session.query(Product).count() == 1
-    # assert session.query(ProductVariant).count() == 1
