@@ -1,5 +1,6 @@
 def test_products_create(client, db):
     data = {
+        "id": 1,
         "name": "Standard-hilt lightsaber",
         "uom": "pcs",
         "category_name": "lightsaber",
@@ -20,16 +21,13 @@ def test_products_create(client, db):
                 "created_at": "2020-10-23T10:37:05.085Z",
                 "updated_at": "2020-10-23T10:37:05.085Z",
                 "config_attributes": [
-                    {
-                        "config_name": "Type",
-                        "config_value": "Standard"
-                    }
-                ]
+                    {"config_name": "Type", "config_value": "Standard"}
+                ],
             }
         ],
         "additional_info": "additional info",
         "created_at": "2020-10-23T10:37:05.085Z",
-        "updated_at": "2020-10-23T10:37:05.085Z"
+        "updated_at": "2020-10-23T10:37:05.085Z",
     }
     res = client.post("/v1/products/create", json=data)
     assert res.status_code == 200
