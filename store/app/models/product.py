@@ -18,11 +18,11 @@ class UOMType(enum.Enum):
     pcs = "pcs"
 
 
-class ProductBase(SQLModel):
+class Product(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     uom: UOMType = Field(
-        sa_column=sa.Column(sau.ChoiceType(
-            UOMType, impl=sa.String()), nullable=False)
+        sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False)
     )
     category_name: str
     is_producible: bool
@@ -33,8 +33,7 @@ class ProductBase(SQLModel):
         )
     )
     purchase_uom: UOMType = Field(
-        sa_column=sa.Column(sau.ChoiceType(
-            UOMType, impl=sa.String()), nullable=False)
+        sa_column=sa.Column(sau.ChoiceType(UOMType, impl=sa.String()), nullable=False)
     )
     purchase_uom_conversion_rate: int
     additional_info: str
@@ -45,11 +44,3 @@ class ProductBase(SQLModel):
         sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False
     )
     variants: List["ProductVariant"] = Relationship(back_populates="product")
-
-
-class Product(ProductBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-
-
-class ProductCreate(ProductBase):
-    pass
