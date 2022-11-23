@@ -1,10 +1,9 @@
-import asyncio
 from typing import Generator
 
 import pytest
-from fastapi.testclient import TestClient
-from app.main import app
 from app.db import engine
+from app.main import app
+from fastapi.testclient import TestClient
 from sqlmodel import Session
 
 
