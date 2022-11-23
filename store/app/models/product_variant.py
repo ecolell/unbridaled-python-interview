@@ -14,7 +14,7 @@ class ProductVariantType(enum.Enum):
     product = "product"
 
 
-class ProductVariant(SQLModel, table=True):
+class ProductVariant(SQLModel, table=True):  # nomypy
     class Config:
         arbitrary_types_allowed = True
 

@@ -20,7 +20,7 @@ class UOMType(enum.Enum):
     m = "m"
 
 
-class Product(SQLModel, table=True):
+class Product(SQLModel, table=True):  # nomypy
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(sa_column=sa.Column("name", sa.Text, unique=True))
     uom: UOMType = Field(
