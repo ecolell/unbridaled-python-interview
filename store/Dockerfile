@@ -7,11 +7,6 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install system dependencies
-RUN apt-get update \
-  && apt-get -y install postgresql \
-  && apt-get clean
-
 # install python dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
@@ -20,5 +15,10 @@ COPY . .
 RUN pip install -r requirements.txt
 
 FROM backend_web as backend_dev
+
+# install system dependencies
+RUN apt-get update \
+  && apt-get -y install libpq-dev python3-dev postgresql \
+  && apt-get clean
 
 RUN pip install -r requirements_dev.txt
