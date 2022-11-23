@@ -1,6 +1,6 @@
 import enum
 from datetime import datetime
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 
 import sqlalchemy as sa
 import sqlalchemy_utils as sau
@@ -35,4 +35,4 @@ class ProductVariant(SQLModel, table=True):
     updated_at: datetime = Field(
         sa_column=sa.Column(sa.DateTime(timezone=True)), nullable=False
     )
-    config_attributes: List = Field(default=[], sa_column=Column(JSON))
+    config_attributes: List[Dict[str, str]] = Field(default=[], sa_column=Column(JSON))
