@@ -10,7 +10,11 @@
         "description": "The connection url for the FastAPI application database."
       }
     },
-    "image": "heroku/python",
+    "buildpacks": [
+        {
+          "url": "https://github.com/heroku/heroku-buildpack-python.git"
+        }
+    ],
     "environments": {
       "test": {
         "scripts": {
