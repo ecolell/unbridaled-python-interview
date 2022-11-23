@@ -18,7 +18,8 @@ FROM backend_web as backend_dev
 
 # install system dependencies
 RUN apt-get update \
-  && apt-get -y install libpq-dev python3-dev postgresql \
+  && apt-get -y install libpq-dev python3-dev curl git postgresql \
   && apt-get clean
+RUN curl https://cli-assets.heroku.com/install.sh | sh
 
 RUN pip install -r requirements_dev.txt

@@ -1,3 +1,4 @@
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 DC:=CURRENT_UID=$(UID) docker-compose -f "docker-compose.yml"
 DC_DEV:=CURRENT_UID=$(UID) docker-compose -f "docker-compose-dev.yml"
 
@@ -22,6 +23,9 @@ pipeline-backend-test:
 	touch web.env
 	$(DC_DEV) run --rm -w "/usr/src/app" web py.test -s -v -l -n 4
 	$(DC_DEV) down
+
+dev-bash:
+	$(DC_DEV) run --rm -v "$(ROOT_DIR):/usr/src/dapp" -w "/usr/src/dapp" web bash
 
 up:
 	$(DC) up -d db web
