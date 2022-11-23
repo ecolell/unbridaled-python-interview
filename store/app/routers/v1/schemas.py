@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from app.models.product import ProductType, UOMType
 from app.models.product_variant import ProductVariantType
@@ -15,7 +15,7 @@ class ProductVariantCreate(BaseModel):
     type: ProductVariantType
     created_at: datetime
     updated_at: datetime
-    config_attributes: List
+    config_attributes: List[Dict[str, str]]
 
 
 class ProductCreate(BaseModel):
