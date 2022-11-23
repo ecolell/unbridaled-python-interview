@@ -1,3 +1,7 @@
+from app.models.product import Product
+from app.models.product_variant import ProductVariant
+
+
 def test_products_create(client, product_data, db):
     res = client.post("/v1/products/create", json=product_data)
     assert res.status_code == 200
@@ -16,3 +20,5 @@ def test_products_create(client, product_data, db):
         "created_at": "2020-10-23T10:37:05.085000Z",
         "updated_at": "2020-10-23T10:37:05.085000Z",
     }
+    assert db.query(Product).count() == 1
+    assert db.query(ProductVariant).count() == 1

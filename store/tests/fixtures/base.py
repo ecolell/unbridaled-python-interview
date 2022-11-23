@@ -1,10 +1,12 @@
 from typing import Generator
 
 import pytest
-from app.db import engine
+from app.db import settings
 from app.main import app
 from fastapi.testclient import TestClient
-from sqlmodel import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlmodel import SQLModel
 
 
 @pytest.fixture()
@@ -14,6 +16,9 @@ def client() -> Generator:
 
 
 @pytest.fixture()
-def db() -> Session:
-    with Session(engine) as session:
-        yield session.exec
+def db():
+    engine = create_engine(settings.database_url.replace("+asyncpg", ""))
+    with engine.begin():
+        SQLModel.metadata.drop_all(engine)
+        SQLModel.metadata.create_all(engine)
+        yield scoped_session(sessionmaker(bind=engine))
