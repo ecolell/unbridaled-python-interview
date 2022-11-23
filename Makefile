@@ -21,7 +21,7 @@ pipeline-backend-test:
 	sleep 1;
 	$(DC_DEV) run web alembic upgrade head
 	touch web.env
-	$(DC_DEV) run --rm -w "/usr/src/app" web py.test -s -v -l -n 4
+	$(DC_DEV) run --rm -w "/usr/src/app" web py.test -s | tee pytest-coverage.txt
 	$(DC_DEV) down
 
 dev-bash:

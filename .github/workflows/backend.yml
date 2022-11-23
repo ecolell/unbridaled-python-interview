@@ -23,3 +23,18 @@ jobs:
     - run: pip install --upgrade pip
     - run: pip install mypy==v0.991
     - run: cd store && mypy app
+  test:
+    name: test
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run tests
+      run: make pipeline-backend-test
+    - name: Coverage
+      uses: coroo/pytest-coverage-commentator@v1.0.2
+      with:
+        pytest-coverage: pytest-coverage.txt
