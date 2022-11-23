@@ -6,6 +6,10 @@ if TYPE_CHECKING:
     from app.routers.v1 import ProductCreate
 
 
+class ProductError(Exception):
+    pass
+
+
 async def create_product(session: AsyncSession, data: "ProductCreate") -> "Product":
     product = Product(**data.__dict__)
     session.add(product)
