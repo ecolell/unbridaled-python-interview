@@ -6,7 +6,13 @@ from app.models.product_variant import ProductVariantType
 from pydantic import BaseModel
 
 
-class ProductVariantCreate(BaseModel):
+class APIModel(BaseModel):
+    class Config:
+        json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%fZ")}
+
+
+class ProductVariantCreate(APIModel):
+
     id: int
     sku: str
     sales_price: int
@@ -18,7 +24,8 @@ class ProductVariantCreate(BaseModel):
     config_attributes: List[Dict[str, str]]
 
 
-class Product(BaseModel):
+class Product(APIModel):
+
     id: int
     name: str
     uom: UOMType
