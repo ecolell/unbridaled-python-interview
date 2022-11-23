@@ -18,7 +18,8 @@ class ProductVariantCreate(BaseModel):
     config_attributes: List[Dict[str, str]]
 
 
-class ProductCreate(BaseModel):
+class Product(BaseModel):
+    id: int
     name: str
     uom: UOMType
     category_name: str
@@ -31,4 +32,7 @@ class ProductCreate(BaseModel):
     additional_info: str
     created_at: datetime
     updated_at: datetime
+
+
+class ProductCreate(Product):
     variants: List[ProductVariantCreate]
