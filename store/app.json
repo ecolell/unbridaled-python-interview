@@ -6,7 +6,7 @@
     "keywords": ["python", "fastapi" ],
     "addons": [ "heroku-postgresql" ],
     "env": {
-      "DATABASE_URL": {
+      "ASYNC_DATABASE_URL": {
         "description": "The connection url for the FastAPI application database."
       }
     },

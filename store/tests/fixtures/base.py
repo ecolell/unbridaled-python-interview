@@ -17,7 +17,7 @@ def client() -> Generator:
 
 @pytest.fixture()
 def db():
-    engine = create_engine(settings.database_url.replace("+asyncpg", ""))
+    engine = create_engine(settings.async_database_url.replace("+asyncpg", ""))
     with engine.begin():
         SQLModel.metadata.drop_all(engine)
         SQLModel.metadata.create_all(engine)
